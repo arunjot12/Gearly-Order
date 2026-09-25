@@ -1,4 +1,9 @@
 pub mod db;
+use crate::db::create_pool;
+pub mod schema;
+pub mod model;
+
 fn main() {
-    println!("Hello, world!");
+   let pool = create_pool();
 }
+   
