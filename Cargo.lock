@@ -288,6 +288,7 @@ dependencies = [
  "deadpool-diesel",
  "diesel",
  "dotenvy",
+ "serde",
 ]
 
 [[package]]

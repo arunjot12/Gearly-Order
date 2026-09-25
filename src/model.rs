@@ -1,9 +1,16 @@
-use diesel::{Selectable, deserialize::Queryable, prelude::Insertable};
+use serde::{Deserialize, Serialize};
+use diesel::prelude::*;
 
-use crate::schema;
+#[derive(Debug, Insertable, Serialize, Deserialize, Selectable)]
+#[diesel(table_name = crate::schema::orders)]
+pub struct NewOrder {
+    pub delivery_address: String,
+}
 
-#[derive(Queryable,Selectable,Insertable)]
-#[crate::schema::table::orders]
-pub struct NewQrder {
-    pub st
+#[derive(Queryable, Selectable)]
+#[diesel(table_name = crate::schema::orders)]
+pub struct Order{
+ pub delivery_address: String,
+  pub created_at: Option<NaiveDateTime>,
+    pub updated_at: Option<NaiveDateTime>,
 }
