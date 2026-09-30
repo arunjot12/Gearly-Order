@@ -1,24 +1,26 @@
 // @generated automatically by Diesel CLI.
 
-pub mod sql_types {
-    #[derive(diesel::query_builder::QueryId, Clone, diesel::sql_types::SqlType)]
-    #[diesel(mysql_type(name = "Enum"))]
-    pub struct OrdersPaymentEnum;
+diesel::table! {
+    order_items (id) {
+        id -> Integer,
+        order_id -> Integer,
+        quantity -> Integer,
+        unit_price -> Integer,
+        product_id -> Integer,
+        created_at -> Nullable<Timestamp>,
+    }
 }
 
 diesel::table! {
-    use diesel::sql_types::*;
-    use super::sql_types::OrdersPaymentEnum;
-
     orders (id) {
         id -> Integer,
         order_number -> Integer,
-        PersonID -> Nullable<Integer>,
+        user_id -> Nullable<Integer>,
         product_id -> Nullable<Integer>,
         #[max_length = 255]
         delivery_address -> Varchar,
-        #[max_length = 7]
-        payment -> OrdersPaymentEnum,
+        #[max_length = 255]
+        payment -> Varchar,
         created_at -> Nullable<Timestamp>,
         updated_at -> Nullable<Timestamp>,
     }
@@ -86,4 +88,4 @@ diesel::table! {
     }
 }
 
-diesel::allow_tables_to_appear_in_same_query!(orders, products, shopkeepers, users,);
+diesel::allow_tables_to_appear_in_same_query!(order_items, orders, products, shopkeepers, users,);

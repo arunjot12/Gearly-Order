@@ -8,5 +8,5 @@ axum = "0.8.9"
 dotenvy = "0.15"
 diesel = { version = "2.3.13", features = ["mysql"] }
 deadpool-diesel = { version = "0.7.0", features = ["mysql"] }
-serde = "1.0.229"
+serde = "1.0.228"
 chrono = "0.4.45"
