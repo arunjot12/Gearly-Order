@@ -7,3 +7,8 @@ pub fn create_pool() -> Pool {
     let manager = Manager::new(database, deadpool_diesel::Runtime::Tokio1);
     Pool::builder(manager).max_size(10).build().expect("Unable to setup")
 }
+
+#[derive(Clone)]
+pub struct AppState{
+    pub db_pool: Pool
+}
