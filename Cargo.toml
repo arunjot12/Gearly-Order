@@ -11,3 +11,4 @@ deadpool-diesel = { version = "0.7.0", features = ["mysql"] }
 serde = {version = "1.0.228", features = ["derive"]}
 chrono = "0.4.45"
 tokio = { version = "1.53.1", features = ["full"] }
+jsonwebtoken = "11.1.0"

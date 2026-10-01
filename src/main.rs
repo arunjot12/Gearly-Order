@@ -2,6 +2,7 @@ pub mod db;
 use axum::{Router, serve};
 use tokio::net::TcpListener;
 pub mod order;
+pub mod auth;
 use crate::{db::{AppState,create_pool}};
 use crate::order::api::get_order;
 pub mod schema;
