@@ -14,13 +14,12 @@ pub struct NewOrder {
     pub delivery_address: String,
     pub payment: String
 }
-
+    
 #[derive(Debug,Queryable)]
 #[diesel(table_name = crate::schema::order_items)]
 pub struct OrderItem {
     pub id: i32,
     pub order_id: i32,
-    pub user_id: i32,
     pub quantity: i32,
     pub unit_price: i32,
     pub created_at: Option<NaiveDateTime>,
