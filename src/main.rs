@@ -1,5 +1,5 @@
 pub mod db;
-use axum::Router;
+use axum::{Router, serve};
 use tokio::net::TcpListener;
 pub mod order;
 use crate::{db::{AppState,create_pool}};
@@ -10,7 +10,6 @@ pub mod model;
 
 #[tokio::main]
 async fn main() {
-
    let pool = create_pool();
    let state = AppState {
          db_pool: pool,
@@ -24,6 +23,9 @@ async fn main() {
    let port: u16 = std::env::var("PORT").ok().and_then(|p| p.parse().ok())
         .unwrap_or(3000);
 
-   let port = TcpListener::bind(format!("0.0.0.0:{port}")).await;
+   let listener = TcpListener::bind(format!("0.0.0.0:{port}")).await
+           .unwrap_or_else(|e| panic!("failed to bind to port {port}: {e}"));
+
+   serve(listener, router).await.unwrap()
 }
    
