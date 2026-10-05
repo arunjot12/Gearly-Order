@@ -1,6 +1,8 @@
 use std::env;
 use deadpool_diesel::mysql::{Manager, Pool};
 
+use crate::auth::jwt::JwtService;
+
 pub fn create_pool() -> Pool {
     dotenvy::dotenv().ok();
     let database = env::var("DATABASE_URL").expect("no database found");
@@ -10,5 +12,6 @@ pub fn create_pool() -> Pool {
 
 #[derive(Clone)]
 pub struct AppState{
-    pub db_pool: Pool
+    pub db_pool: Pool,
+    pub jwt_service: JwtService
 }
