@@ -2,11 +2,13 @@ pub mod db;
 use axum::{Router, serve};
 use tokio::net::TcpListener;
 pub mod order;
+use axum::middleware;
 pub mod auth;
 use crate::{auth::jwt::JwtService, db::{AppState,create_pool}};
 use crate::order::api::get_order;
 pub mod schema;
 use axum::{routing::{get}};
+use crate::auth::middleware::auth_middleware;
 pub mod model;
 
 #[tokio::main]
@@ -20,8 +22,11 @@ async fn main() {
       };
 
    let router = Router::new()
-    .route("/health", get(get_order)).with_state(state);
-
+    .route("/health", get(get_order))
+    .layer(middleware::from_fn_with_state( 
+            state.clone(),
+            auth_middleware,
+        ));
    println!("Let's start the order service");
 
    let port: u16 = std::env::var("PORT").ok().and_then(|p| p.parse().ok())
