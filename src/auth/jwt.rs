@@ -2,7 +2,7 @@ use chrono::{Duration, Utc};
 use jsonwebtoken::{DecodingKey, Validation, decode};
 use serde::Deserialize;
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 pub struct Claims {
     pub sub: i32,
     pub exp: i64,
@@ -22,7 +22,7 @@ impl JwtService {
         }
     }
 
-    fn verify_token(&self, token_str: &String) -> Result<Claims, jsonwebtoken::errors::Error> {
+    pub fn verify_token(&self, token_str: &str) -> Result<Claims, jsonwebtoken::errors::Error> {
         let mut validation = Validation::default();
         validation.validate_exp = true;
         let token_data = decode(token_str, &self.decording_key, &validation)?;

@@ -1,7 +1,10 @@
-use axum::extract::{Request, State};
+use axum::{extract::{Request, State}, response::Response};
 use crate::AppState;
+use axum::http::{StatusCode, header};
+use axum::middleware::Next;
 
-pub fn auth_middleware(State(state):State<AppState>, mut request: Request, next: Next,){
+pub async fn auth_middleware(State(state):State<AppState>, mut request: Request, next: Next) -> Result<Response,StatusCode>
+{
      let auth = request
         .headers()
         .get(header::AUTHORIZATION)
